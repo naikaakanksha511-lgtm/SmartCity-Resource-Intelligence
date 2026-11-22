@@ -1,0 +1,218 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0b111c">
+  <title>City Resource Intelligence</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script defer src="{{ url_for('static', filename='js/dashboard.js') }}"></script>
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <a class="brand" href="#overview"><span class="brand-mark">S</span><span>URBAN<span class="brand-light">PULSE</span><small>RESOURCE INTELLIGENCE</small></span></a>
+      <div class="nav-label">WORKSPACE</div>
+      <nav aria-label="Main navigation">
+        <a class="nav-item active" href="#overview"><span>◈</span> Overview</a>
+        <a class="nav-item" href="#energy"><span>ϟ</span> Energy Intelligence</a>
+        <a class="nav-item" href="#water-intelligence"><span>≈</span> Water Intelligence</a>
+        <a class="nav-item" href="#solar"><span>☼</span> Solar Intelligence</a>
+        <a class="nav-item" href="#weather"><span>☁</span> Weather Intelligence</a>
+        <a class="nav-item" href="#allocation-engine"><span>⌘</span> Resource Allocation</a>
+        <a class="nav-item" href="#emergency-intelligence"><span>◎</span> Emergency Intelligence</a>
+        <a class="nav-item" href="#digital-twin"><span>◉</span> Digital Twin</a>
+        <a class="nav-item" href="#analytics"><span>▤</span> Analytics</a>
+      </nav>
+      <div class="sidebar-bottom"><div class="system-state"><span class="pulse-dot"></span><span>System operational</span><small>DEMO ENVIRONMENT</small></div><div class="profile"><div class="avatar">CA</div><div><strong>City Administrator</strong><small>Control room</small></div><span class="more">···</span></div></div>
+    </aside>
+    <main class="main-content" id="overview">
+      <header class="topbar"><div class="breadcrumb">Workspace <span>/</span> <strong>Overview</strong></div><div class="top-actions"><span class="data-badge"><i></i> SIMULATED DATA</span><button class="icon-button" aria-label="Notifications">♧<b>2</b></button><div class="date-display">◷ <span id="updated-at">Loading…</span></div></div></header>
+      <section class="page-heading"><div><div class="eyebrow">CITY OPERATIONS <span>•</span> DEMONSTRATION</div><h1>City Resource Overview</h1><p>A unified view of resource performance across the city.</p></div><button class="refresh-button" id="refresh-button">↻ <span>Refresh data</span></button></section>
+      <div class="notice"><span class="notice-icon">i</span><span><strong>Demonstration environment.</strong> All readings are fictional sample data and are not connected to live city infrastructure.</span></div>
+      <section class="metrics-grid" aria-label="Resource metrics">
+        <article class="metric-card" id="energy"><div class="metric-top"><span class="metric-icon energy-icon">ϟ</span><span class="metric-kicker">ELECTRICITY DEMAND</span><span class="trend neutral">LATEST</span></div><div class="metric-value"><strong id="electricity-value">—</strong><span>MW</span></div><div class="metric-foot"><span>Across all monitored zones</span><span class="sparkline">⌁</span></div></article>
+        <article class="metric-card" id="water"><div class="metric-top"><span class="metric-icon water-icon">≈</span><span class="metric-kicker">WATER CONSUMPTION</span><span class="trend neutral">LATEST</span></div><div class="metric-value"><strong id="water-value">—</strong><span>L</span></div><div class="metric-foot"><span>Across all monitored zones</span><span class="sparkline">⌁</span></div></article>
+        <article class="metric-card" id="solar"><div class="metric-top"><span class="metric-icon solar-icon">☼</span><span class="metric-kicker">SOLAR GENERATION</span><span class="trend neutral">LATEST</span></div><div class="metric-value"><strong id="solar-value">—</strong><span>MW</span></div><div class="metric-foot"><span>Across all monitored zones</span><span class="sparkline">⌁</span></div></article>
+        <article class="metric-card" id="weather"><div class="metric-top"><span class="metric-icon temp-icon">⌁</span><span class="metric-kicker">AVERAGE TEMPERATURE</span><span class="trend neutral">LATEST</span></div><div class="metric-value"><strong id="temperature-value">—</strong><span>°C</span></div><div class="metric-foot"><span>Across all monitored zones</span><span class="sparkline">⌁</span></div></article>
+      </section>
+      <section class="energy-intelligence" id="energy-forecast">
+        <div class="energy-title"><div><div class="eyebrow">ELECTRICITY INTELLIGENCE</div><h2>Demand analysis &amp; forecast</h2><p>Historical and next-interval views from the simulated dataset.</p></div><span class="data-badge"><i></i> BASELINE · SIMULATED</span></div>
+        <div class="energy-metrics" id="energy-statistics"><div class="energy-stat"><small>AVERAGE HISTORICAL DEMAND</small><strong>—</strong><span>MW across readings</span></div><div class="energy-stat"><small>MAXIMUM RECORDED</small><strong>—</strong><span>MW</span></div><div class="energy-stat"><small>MINIMUM RECORDED</small><strong>—</strong><span>MW</span></div><div class="energy-stat"><small>HIGH-DEMAND ZONES</small><strong>—</strong><span>zone averages at/above city average</span></div></div>
+        <div class="energy-charts"><article class="panel"><div class="panel-heading"><div><h2>Historical demand by zone</h2><p>Chronological electricity readings · MW</p></div></div><div class="chart-wrap energy-chart"><canvas id="energy-history-chart" aria-label="Historical electricity demand by zone"></canvas></div></article><article class="panel"><div class="panel-heading"><div><h2>Last reading vs forecast</h2><p>One-step persistence baseline by zone · MW</p></div></div><div class="chart-wrap energy-chart"><canvas id="energy-forecast-chart" aria-label="Historical and forecast electricity demand by zone"></canvas></div></article></div>
+        <div class="energy-details"><article class="panel"><div class="panel-heading"><div><h2>Zone demand comparison</h2><p>Average, peak, range, and next interval</p></div></div><div class="table-wrap"><table><thead><tr><th>ZONE</th><th>AVERAGE</th><th>PEAK</th><th>RANGE</th><th>FORECAST</th><th>FLAG</th></tr></thead><tbody id="energy-zone-rows"><tr><td colspan="6" class="table-message">Loading electricity analysis…</td></tr></tbody></table></div></article><article class="panel methodology-panel"><h2>Method &amp; evaluation</h2><p id="forecast-method">Loading methodology…</p><div id="forecast-evaluation" class="evaluation-box"></div><p class="method-limitation">This small one-day sample supports a transparent baseline only. Metrics are exploratory and not evidence of production forecast performance.</p></article></div>
+        <div class="energy-error" id="energy-error" role="status" hidden></div>
+      </section>
+      <section class="energy-intelligence water-intelligence" id="water-intelligence">
+        <div class="energy-title"><div><div class="eyebrow">WATER INTELLIGENCE</div><h2>Consumption analysis</h2><p>Zone usage, baseline forecast, and anomaly screening from simulated readings.</p></div><span class="data-badge"><i></i> SIMULATED · LITRES</span></div>
+        <div class="energy-metrics" id="water-statistics"><div class="energy-stat"><small>AVERAGE CONSUMPTION</small><strong>—</strong><span>litres per sample reading</span></div><div class="energy-stat"><small>MAXIMUM RECORDED</small><strong>—</strong><span>litres</span></div><div class="energy-stat"><small>MINIMUM RECORDED</small><strong>—</strong><span>litres</span></div><div class="energy-stat"><small>LATEST SAMPLE</small><strong>—</strong><span>all monitored zones · litres</span></div></div>
+        <div class="energy-charts"><article class="panel"><div class="panel-heading"><div><h2>Historical consumption by zone</h2><p>Chronological readings · litres per sample interval</p></div></div><div class="chart-wrap energy-chart"><canvas id="water-history-chart" aria-label="Historical water consumption by zone"></canvas></div></article><article class="panel"><div class="panel-heading"><div><h2>Latest reading vs forecast</h2><p>One-step persistence baseline by zone · litres</p></div></div><div class="chart-wrap energy-chart"><canvas id="water-forecast-chart" aria-label="Latest and forecast water consumption"></canvas></div></article></div>
+        <div class="energy-details"><article class="panel"><div class="panel-heading"><div><h2>Zone-wise water usage</h2><p>Average, minimum, maximum, range, and forecast</p></div></div><div class="table-wrap"><table><thead><tr><th>ZONE</th><th>AVERAGE</th><th>MINIMUM</th><th>MAXIMUM</th><th>RANGE</th><th>LATEST</th><th>FORECAST</th></tr></thead><tbody id="water-zone-rows"><tr><td colspan="7" class="table-message">Loading water analysis…</td></tr></tbody></table></div></article><article class="panel"><div class="panel-heading"><div><h2>Water anomaly screening</h2><p>Flags compare the latest sample to earlier readings</p></div><span class="alert-count" id="water-alert-count">—</span></div><div id="water-alert-list" class="alert-list"><div class="table-message">Loading anomaly analysis…</div></div><div class="alert-footer">An anomaly may warrant review; it does not confirm a leak.</div></article></div>
+        <div class="energy-details"><article class="panel methodology-panel"><h2>Forecast method &amp; evaluation</h2><p id="water-forecast-method">Loading water forecast methodology…</p><div id="water-forecast-evaluation" class="evaluation-box"></div></article><article class="panel methodology-panel"><h2>Shortage assessment</h2><p id="water-shortage-status">Checking available supply information…</p><p id="water-shortage-detail" class="method-limitation">No water supply or storage measurements are included in the sample dataset.</p></article></div>
+        <div class="energy-error" id="water-error" role="status" hidden></div>
+      </section>
+      <section class="energy-intelligence solar-intelligence" id="solar-intelligence">
+        <div class="energy-title"><div><div class="eyebrow">SOLAR INTELLIGENCE</div><h2>Generation analysis</h2><p>Zone analytics, one-interval baseline, and aligned demand comparison.</p></div><span class="data-badge"><i></i> SIMULATED · MW</span></div>
+        <div class="energy-metrics" id="solar-statistics"><div class="energy-stat"><small>AVERAGE GENERATION</small><strong>—</strong><span>MW per reading</span></div><div class="energy-stat"><small>MAXIMUM RECORDED</small><strong>—</strong><span>MW</span></div><div class="energy-stat"><small>MINIMUM RECORDED</small><strong>—</strong><span>MW</span></div><div class="energy-stat"><small>LATEST GENERATION</small><strong>—</strong><span>MW across zones</span></div></div>
+        <div class="energy-charts"><article class="panel"><div class="panel-heading"><div><h2>Historical generation by zone</h2><p>Chronological readings and final interval baseline · MW</p></div></div><div class="chart-wrap energy-chart"><canvas id="solar-history-chart" aria-label="Historical solar generation"></canvas></div></article><article class="panel"><div class="panel-heading"><div><h2>Solar and demand by zone</h2><p>Latest matched zone readings · MW</p></div></div><div class="chart-wrap energy-chart"><canvas id="solar-demand-chart" aria-label="Solar generation and electricity demand comparison"></canvas></div></article></div>
+        <div class="energy-details"><article class="panel"><div class="panel-heading"><div><h2>Solar versus electricity demand</h2><p>Same timestamp and units; arithmetic estimate only</p></div></div><div class="table-wrap"><table><thead><tr><th>ZONE</th><th>DEMAND</th><th>SOLAR</th><th>UNCOVERED ESTIMATE</th><th>CONTRIBUTION</th></tr></thead><tbody id="solar-demand-rows"><tr><td colspan="5" class="table-message">Loading matched readings…</td></tr></tbody></table></div></article><article class="panel"><div class="panel-heading"><div><h2>Low-generation alerts</h2><p id="solar-alert-method">Latest generation below configurable 2 MW screen</p></div><span class="alert-count" id="solar-alert-count">—</span></div><div id="solar-alert-list" class="alert-list"><div class="table-message">Loading alerts…</div></div><div class="alert-footer">Solar generation does not necessarily equal electricity available to the grid.</div></article></div>
+        <div class="energy-details"><article class="panel methodology-panel"><h2>Forecast method &amp; evaluation</h2><p id="solar-forecast-method">Loading methodology…</p><div id="solar-forecast-evaluation" class="evaluation-box"></div><p class="method-limitation">Four simulated observations per zone; holdout metrics are exploratory and do not establish reliable forecasting accuracy.</p></article><article class="panel methodology-panel"><h2>Weather analysis</h2><p id="solar-weather-status">Checking weather fields…</p><p class="method-limitation">Only recorded weather fields are assessed. No weather measurements are fabricated.</p></article></div>
+        <div class="energy-error" id="solar-error" role="status" hidden></div>
+      </section>
+      <section class="content-grid" id="analytics">
+        <article class="panel chart-panel"><div class="panel-heading"><div><h2>Resource demand profile</h2><p>Electricity demand and solar generation by sample interval</p></div><span class="chart-period">18 JUN 2026 <span>⌄</span></span></div><div class="chart-wrap"><canvas id="resource-chart" aria-label="Electricity and solar chart"></canvas></div><div class="chart-legend"><span><i class="legend-electric"></i> Electricity demand</span><span><i class="legend-solar"></i> Solar generation</span></div></article>
+        <article class="panel availability-panel" id="allocation"><div class="panel-heading"><div><h2>Resource availability</h2><p>Latest recorded zone average</p></div><span class="info-dot">i</span></div><div class="availability-ring"><div><strong id="availability-value">—</strong><span>AVAILABLE</span></div></div><div class="availability-caption"><span class="status-dot"></span><span id="availability-caption">Loading resource status</span></div><p class="panel-note">Availability index is illustrative sample data.</p></article>
+      </section>
+      <section class="content-grid lower-grid">
+        <article class="panel zones-panel"><div class="panel-heading"><div><h2>City zone monitoring</h2><p>Current sample status across monitored areas</p></div><button class="text-button" id="zone-count">All zones <span>⌄</span></button></div><div class="table-wrap"><table><thead><tr><th>CITY ZONE</th><th>ELECTRICITY</th><th>WATER USE</th><th>SOLAR</th><th>AVAILABILITY</th><th>STATUS</th></tr></thead><tbody id="zone-rows"><tr><td colspan="6" class="table-message">Loading zone readings…</td></tr></tbody></table></div></article>
+        <article class="panel alerts-panel" id="emergency"><div class="panel-heading"><div><h2>Operational alerts</h2><p>Flags derived from sample readings</p></div><span class="alert-count" id="alert-count">—</span></div><div id="alert-list" class="alert-list"><div class="table-message">Loading alerts…</div></div><div class="alert-footer">Alerts are rule-based demonstrations, not operational advisories.</div></article>
+      </section>
+      <section class="allocation-section emergency-section" id="emergency-intelligence">
+        <div class="energy-title"><div><div class="eyebrow">MILESTONE 6 · SIMULATED SCENARIOS</div><h2>City emergency intelligence</h2><p>Scenario-based multi-resource stress analysis. No live events or supply capacity are inferred.</p></div><span class="data-badge"><i></i> EXPLAINABLE · SIMULATED</span></div>
+        <div class="panel emergency-controls"><label>Demonstration scenario<select id="emergency-scenario"><option>Loading scenarios…</option></select></label><button class="refresh-button" id="emergency-run">Compare with normal operations</button><p class="panel-note" id="emergency-description">Fictional demonstration inputs; not live events.</p><div id="emergency-error" class="energy-error" role="status" hidden></div></div>
+        <div id="emergency-results" class="allocation-results"><div class="panel table-message">Loading emergency scenarios…</div></div>
+      </section>
+      <section class="allocation-section digital-twin-section" id="digital-twin">
+        <div class="energy-title"><div><div class="eyebrow">MILESTONE 7 · INTERACTIVE SIMULATION</div><h2>Smart City Digital Twin</h2><p>Deterministic time-stepped simulation of city resource shortages, cascading risks, emergency interventions and recovery.</p></div><span class="data-badge"><i></i> SIMULATED · DETERMINISTIC</span></div>
+        <div class="digital-twin-controls panel">
+          <div class="dt-control-group">
+            <label>Demonstration scenario<select id="dt-scenario"><option>Loading scenarios…</option></select></label>
+            <div class="dt-config-fields">
+              <label>Simulation duration<input id="dt-duration" type="number" min="1" max="72" value="24" step="1"><span class="config-hint">hours</span></label>
+              <label>Time step<input id="dt-step-size" type="number" min="0.5" max="12" value="1" step="0.5"><span class="config-hint">hours</span></label>
+              <label>Start time<input id="dt-start-time" type="datetime-local" value="2026-06-18T08:00"></label>
+            </div>
+          </div>
+          <div class="dt-button-group">
+            <button class="refresh-button" id="dt-run">▶ Run simulation</button>
+            <button class="refresh-button dt-secondary" id="dt-reset" hidden>↻ Reset</button>
+          </div>
+          <div id="dt-error" class="energy-error" role="status" hidden></div>
+          <p class="panel-note" id="dt-description">Fictional demonstration scenario; not a live event forecast.</p>
+        </div>
+        
+        <div id="dt-results-container" hidden class="dt-results-container">
+          <div class="dt-status-panel panel">
+            <h2>Simulation status</h2>
+            <div class="dt-status-info">
+              <div class="dt-status-item"><small>Simulation duration</small><strong id="dt-info-duration">—</strong></div>
+              <div class="dt-status-item"><small>Total steps</small><strong id="dt-info-steps">—</strong></div>
+              <div class="dt-status-item"><small>Events applied</small><strong id="dt-info-events">—</strong></div>
+              <div class="dt-status-item"><small>Interventions applied</small><strong id="dt-info-interventions">—</strong></div>
+            </div>
+          </div>
+          
+          <article class="panel">
+            <div class="panel-heading">
+              <div>
+                <h2>Emergency severity timeline</h2>
+                <p>Severity level evolution across all simulation hours</p>
+              </div>
+            </div>
+            <div class="chart-wrap dt-chart">
+              <canvas id="dt-severity-chart" aria-label="Emergency severity timeline"></canvas>
+            </div>
+          </article>
+
+          <article class="panel">
+            <div class="panel-heading">
+              <div>
+                <h2>Cascading risk score timeline</h2>
+                <p>Multi-resource risk assessment across simulation duration</p>
+              </div>
+            </div>
+            <div class="chart-wrap dt-chart">
+              <canvas id="dt-risk-chart" aria-label="Cascading risk score timeline"></canvas>
+            </div>
+          </article>
+
+          <article class="panel dt-zones-panel">
+            <div class="panel-heading">
+              <div>
+                <h2>Zone-wise emergency severity summary</h2>
+                <p>Peak severity level reached in each zone across all simulation steps</p>
+              </div>
+            </div>
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>ZONE</th>
+                    <th>PEAK SEVERITY</th>
+                    <th>PEAK RISK SCORE</th>
+                    <th>ALERTS COUNT</th>
+                    <th>STATUS</th>
+                  </tr>
+                </thead>
+                <tbody id="dt-zone-rows">
+                  <tr><td colspan="5" class="table-message">Run simulation to populate zone data.</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </article>
+
+          <article class="panel dt-step-detail-panel">
+            <div class="panel-heading">
+              <div>
+                <h2>Hour-by-hour breakdown</h2>
+                <p>Step through simulation to view detailed state at each interval</p>
+              </div>
+              <div class="dt-step-controls">
+                <button class="text-button" id="dt-prev-step">◀ Previous</button>
+                <span id="dt-step-label">Step — of —</span>
+                <button class="text-button" id="dt-next-step">Next ▶</button>
+              </div>
+            </div>
+            <div class="dt-step-details">
+              <div class="dt-detail-row">
+                <div class="dt-detail-cell">
+                  <small>Timestamp</small>
+                  <strong id="dt-detail-timestamp">—</strong>
+                </div>
+                <div class="dt-detail-cell">
+                  <small>Severity</small>
+                  <strong id="dt-detail-severity" class="severity-normal">—</strong>
+                </div>
+                <div class="dt-detail-cell">
+                  <small>Risk score</small>
+                  <strong id="dt-detail-risk">—</strong>
+                </div>
+                <div class="dt-detail-cell">
+                  <small>Affected zones</small>
+                  <strong id="dt-detail-zones">—</strong>
+                </div>
+              </div>
+              <div class="dt-alerts-view" id="dt-detail-alerts">
+                <p class="table-message">No alerts for this step.</p>
+              </div>
+            </div>
+          </article>
+
+          <article class="panel methodology-panel">
+            <h2>Simulation assumptions</h2>
+            <div id="dt-assumptions-list" class="assumptions-list">
+              <p>Fetching scenario assumptions…</p>
+            </div>
+            <p class="method-limitation">This is a deterministic simulation engine demonstrating city resource management concepts. It does not predict real events and is not connected to live city infrastructure.</p>
+          </article>
+        </div>
+      </section>
+      <footer class="page-footer"><span>URBANPULSE <b>•</b> RESOURCE INTELLIGENCE PLATFORM</span><span>Sample dataset · 18 Jun 2026</span></footer>
+      <section class="allocation-section" id="allocation-engine">
+        <div class="energy-title"><div><div class="eyebrow">MILESTONE 5 · SIMULATED SCENARIOS</div><h2>Intelligent resource allocation</h2><p>Demand comes from the latest sample readings. Capacities and any critical-service requirements below are user-supplied assumptions.</p></div><span class="data-badge"><i></i> HEURISTIC · EXPLAINABLE</span></div>
+        <div class="allocation-controls panel">
+          <div class="allocation-inputs"><label>Electricity available (MW)<input id="alloc-electricity-cap" type="number" min="0" step="any" placeholder="Required explicit capacity"></label><label>Water available (litres / interval)<input id="alloc-water-cap" type="number" min="0" step="any" placeholder="Required explicit capacity"></label><label>Scenario<select id="alloc-scenario"><option value="normal">Normal availability</option><option value="electricity_shortage">Electricity shortage</option><option value="water_shortage">Water shortage</option><option value="solar_reduction">Solar generation reduction</option><option value="increased_demand">Increased demand</option><option value="emergency">Emergency priority changes</option></select></label><label>Scenario severity (%)<input id="alloc-severity" type="number" min="0" max="100" value="25"></label><label>Emergency zone<select id="alloc-emergency-zone"><option value="">Select zone</option></select></label><label>Emergency priority<select id="alloc-emergency-priority"><option>critical</option><option>high</option><option>medium</option><option>standard</option></select></label><label class="solar-opt"><input id="alloc-use-solar" type="checkbox"> Include latest sample solar as an assumed one-for-one addition to electricity capacity</label></div>
+          <div class="table-wrap"><table><thead><tr><th>ZONE</th><th>PRIORITY ASSUMPTION</th><th>CRITICAL ELECTRICITY MW</th><th>CRITICAL WATER LITRES</th></tr></thead><tbody id="allocation-zone-inputs"><tr><td colspan="4" class="table-message">Loading zones…</td></tr></tbody></table></div>
+          <p class="panel-note">No sample zone is identified as critical infrastructure. Each priority and protected requirement is an editable scenario assumption. Results are simulations, not operational instructions.</p>
+          <button class="refresh-button" id="allocation-run">Run baseline and scenario</button><div id="allocation-error" class="energy-error" role="status" hidden></div>
+        </div>
+        <div id="allocation-results" class="allocation-results"><div class="panel table-message">Enter explicit capacities to run a scenario.</div></div>
+      </section>
+    </main>
+  </div>
+</body>
+</html>

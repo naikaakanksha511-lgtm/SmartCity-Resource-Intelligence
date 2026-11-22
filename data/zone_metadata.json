@@ -1,0 +1,137 @@
+{
+  "zones": [
+    {
+      "zone_name": "Central District",
+      "zone_type": "commercial",
+      "population_estimate": 450000,
+      "priority": "high",
+      "coordinates": [0.0, 0.0],
+      "infrastructure": {
+        "electricity": {
+          "capacity_mw": 150,
+          "daily_peak_hour": 12,
+          "peak_coefficient": 1.3,
+          "solar_penetration_percent": 20
+        },
+        "water": {
+          "storage_capacity_litres": 15000000,
+          "treatment_capacity_litres_per_hour": 50000,
+          "daily_peak_hour": 10,
+          "peak_coefficient": 1.25
+        },
+        "solar": {
+          "installed_capacity_mw": 30,
+          "efficiency_baseline_percent": 85
+        }
+      },
+      "critical_services": {
+        "hospitals": 3,
+        "emergency_services": 2,
+        "water_treatment_plants": 1
+      }
+    },
+    {
+      "zone_name": "North Residential",
+      "zone_type": "residential",
+      "population_estimate": 380000,
+      "priority": "medium",
+      "coordinates": [1.0, 1.0],
+      "infrastructure": {
+        "electricity": {
+          "capacity_mw": 120,
+          "daily_peak_hour": 19,
+          "peak_coefficient": 1.25,
+          "solar_penetration_percent": 25
+        },
+        "water": {
+          "storage_capacity_litres": 15000000,
+          "treatment_capacity_litres_per_hour": 40000,
+          "daily_peak_hour": 8,
+          "peak_coefficient": 1.3
+        },
+        "solar": {
+          "installed_capacity_mw": 25,
+          "efficiency_baseline_percent": 85
+        }
+      },
+      "critical_services": {
+        "hospitals": 1,
+        "emergency_services": 1,
+        "water_treatment_plants": 1
+      }
+    },
+    {
+      "zone_name": "South Industrial",
+      "zone_type": "industrial",
+      "population_estimate": 150000,
+      "priority": "standard",
+      "coordinates": [-1.0, -1.0],
+      "infrastructure": {
+        "electricity": {
+          "capacity_mw": 200,
+          "daily_peak_hour": 10,
+          "peak_coefficient": 1.4,
+          "solar_penetration_percent": 15
+        },
+        "water": {
+          "storage_capacity_litres": 15000000,
+          "treatment_capacity_litres_per_hour": 60000,
+          "daily_peak_hour": 14,
+          "peak_coefficient": 1.2
+        },
+        "solar": {
+          "installed_capacity_mw": 35,
+          "efficiency_baseline_percent": 85
+        }
+      },
+      "critical_services": {
+        "hospitals": 0,
+        "emergency_services": 1,
+        "water_treatment_plants": 1
+      }
+    },
+    {
+      "zone_name": "Riverside",
+      "zone_type": "mixed",
+      "population_estimate": 280000,
+      "priority": "medium",
+      "coordinates": [0.5, -0.5],
+      "infrastructure": {
+        "electricity": {
+          "capacity_mw": 110,
+          "daily_peak_hour": 14,
+          "peak_coefficient": 1.2,
+          "solar_penetration_percent": 18
+        },
+        "water": {
+          "storage_capacity_litres": 15000000,
+          "treatment_capacity_litres_per_hour": 35000,
+          "daily_peak_hour": 10,
+          "peak_coefficient": 1.15
+        },
+        "solar": {
+          "installed_capacity_mw": 20,
+          "efficiency_baseline_percent": 85
+        }
+      },
+      "critical_services": {
+        "hospitals": 1,
+        "emergency_services": 1,
+        "water_treatment_plants": 1
+      }
+    }
+  ],
+  "metadata": {
+    "data_type": "simulated",
+    "data_period": "30 consecutive days",
+    "start_date": "2026-06-18",
+    "end_date": "2026-07-17",
+    "hourly_readings": true,
+    "total_records": 2880,
+    "zones_count": 4,
+    "readings_per_zone": 720,
+    "data_quality": "synthetic demonstration",
+    "reproducible": "yes - fixed random seed 12345",
+    "last_generated": null
+  }
+}

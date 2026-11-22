@@ -1,0 +1,22 @@
+﻿.venv/
+venv/
+env/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.env
+.env.*
+!.env.example
+.vscode/
+.DS_Store
+Thumbs.db
+
+# Temporary debugging and audit output
+.pytest_cache/
+__pycache__/
+audit_measurements.json
+audit_output.txt
+flask.err
+flask.log
+verify_dashboard.py
+verify_output.txt

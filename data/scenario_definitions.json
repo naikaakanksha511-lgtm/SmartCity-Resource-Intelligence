@@ -1,0 +1,274 @@
+{
+  "scenarios": [
+    {
+      "scenario_id": "normal_operations",
+      "name": "Normal city operations",
+      "description": "Baseline scenario with no major incidents or disruptions",
+      "start_hour": 0,
+      "duration_hours": 24,
+      "events": [],
+      "interventions": [],
+      "baseline_data_source": "sample_data.csv (June 18-20)",
+      "expected_severity_max": "normal",
+      "expected_zones_affected": 0
+    },
+    {
+      "scenario_id": "heatwave_crisis",
+      "name": "Heatwave and peak electricity demand",
+      "description": "30% increase in electricity demand, 25% increase in water demand from temperature spike",
+      "start_hour": 0,
+      "duration_hours": 24,
+      "events": [
+        {
+          "event_id": "heat_001",
+          "type": "heatwave",
+          "start_hour": 8,
+          "duration_hours": 8,
+          "affected_zones": ["Central District", "North Residential", "South Industrial", "Riverside"],
+          "field": "electricity_demand_mw",
+          "magnitude": 1.3,
+          "explanation": "Temperature 8-10°C above baseline increases AC demand 30%"
+        },
+        {
+          "event_id": "heat_002",
+          "type": "heatwave",
+          "start_hour": 8,
+          "duration_hours": 8,
+          "affected_zones": ["Central District", "North Residential", "South Industrial", "Riverside"],
+          "field": "water_demand_litres",
+          "magnitude": 1.25,
+          "explanation": "Elevated temperature increases cooling water demand 25%"
+        }
+      ],
+      "interventions": [],
+      "baseline_data_source": "sample_data.csv (June 20-21)",
+      "expected_severity_max": "warning",
+      "expected_zones_affected": 4
+    },
+    {
+      "scenario_id": "heatwave_with_intervention",
+      "name": "Heatwave crisis with emergency intervention",
+      "description": "30% demand increase during heatwave, but city responds with demand reduction and emergency capacity",
+      "start_hour": 0,
+      "duration_hours": 24,
+      "events": [
+        {
+          "event_id": "heat_int_001",
+          "type": "heatwave",
+          "start_hour": 8,
+          "duration_hours": 8,
+          "affected_zones": ["Central District", "North Residential", "South Industrial", "Riverside"],
+          "field": "electricity_demand_mw",
+          "magnitude": 1.3,
+          "explanation": "Temperature spike causes 30% demand increase"
+        }
+      ],
+      "interventions": [
+        {
+          "intervention_id": "intv_001",
+          "type": "demand_reduction",
+          "start_hour": 8,
+          "affected_zones": ["South Industrial"],
+          "magnitude": 0.15,
+          "action": "reduce_demand",
+          "explanation": "Emergency alert: industrial zone reduces non-essential demand by 15%"
+        },
+        {
+          "intervention_id": "intv_002",
+          "type": "capacity_increase",
+          "start_hour": 8,
+          "affected_zones": ["Central District"],
+          "magnitude": 25.0,
+          "action": "increase_electricity_capacity",
+          "explanation": "Emergency response: 25 MW emergency generation activated in Central District"
+        }
+      ],
+      "baseline_data_source": "sample_data.csv (June 20-21 with response)",
+      "expected_severity_max": "normal",
+      "expected_zones_affected": 1
+    },
+    {
+      "scenario_id": "low_solar_generation",
+      "name": "Extended cloud cover reducing solar generation",
+      "description": "Persistent weather system with 85% cloud cover reduces solar output 60%",
+      "start_hour": 0,
+      "duration_hours": 24,
+      "events": [
+        {
+          "event_id": "cloud_001",
+          "type": "low_solar_generation",
+          "start_hour": 6,
+          "duration_hours": 12,
+          "affected_zones": ["Central District", "North Residential", "South Industrial", "Riverside"],
+          "field": "solar_generation_mw",
+          "magnitude": 0.4,
+          "explanation": "Cloud cover 85%; solar output reduced to 40% of clear-sky baseline"
+        }
+      ],
+      "interventions": [],
+      "baseline_data_source": "sample_data.csv (June 23-24)",
+      "expected_severity_max": "warning",
+      "expected_zones_affected": 2
+    },
+    {
+      "scenario_id": "electricity_supply_disruption",
+      "name": "Electricity grid disruption with recovery",
+      "description": "Partial electricity supply failure affecting Central District; infrastructure damage creates 4-hour outage",
+      "start_hour": 0,
+      "duration_hours": 24,
+      "events": [
+        {
+          "event_id": "disruption_001",
+          "type": "electricity_supply_disruption",
+          "start_hour": 6,
+          "duration_hours": 4,
+          "affected_zones": ["Central District"],
+          "field": "electricity_supply_mw",
+          "magnitude": 0.5,
+          "explanation": "Grid equipment failure reduces Central District supply to 50% capacity"
+        },
+        {
+          "event_id": "recovery_001",
+          "type": "recovery",
+          "start_hour": 10,
+          "duration_hours": 4,
+          "affected_zones": ["Central District"],
+          "field": "electricity_supply_mw",
+          "magnitude": 1.0,
+          "explanation": "System rerouted through alternate grid path; supply restored to normal"
+        }
+      ],
+      "interventions": [],
+      "baseline_data_source": "sample_data.csv (July 3)",
+      "expected_severity_max": "critical",
+      "expected_zones_affected": 1
+    },
+    {
+      "scenario_id": "water_supply_disruption",
+      "name": "Water supply disruption and recovery",
+      "description": "Pipeline maintenance reduces water supply 40% for 6 hours affecting residential and commercial zones",
+      "start_hour": 0,
+      "duration_hours": 24,
+      "events": [
+        {
+          "event_id": "water_disrupt_001",
+          "type": "water_supply_disruption",
+          "start_hour": 6,
+          "duration_hours": 6,
+          "affected_zones": ["Central District", "North Residential"],
+          "field": "water_supply_litres",
+          "magnitude": 0.6,
+          "explanation": "Scheduled maintenance reduces water supply to 60% capacity"
+        },
+        {
+          "event_id": "water_recovery_001",
+          "type": "recovery",
+          "start_hour": 12,
+          "duration_hours": 4,
+          "affected_zones": ["Central District", "North Residential"],
+          "field": "water_supply_litres",
+          "magnitude": 1.0,
+          "explanation": "Maintenance completed; supply restored to 100% capacity"
+        }
+      ],
+      "interventions": [],
+      "baseline_data_source": "sample_data.csv (July 5)",
+      "expected_severity_max": "high",
+      "expected_zones_affected": 2
+    },
+    {
+      "scenario_id": "combined_shortage",
+      "name": "Combined electricity and water shortage",
+      "description": "Heatwave + partial supply disruption creates dual-resource stress across all zones",
+      "start_hour": 0,
+      "duration_hours": 24,
+      "events": [
+        {
+          "event_id": "combined_001",
+          "type": "heatwave",
+          "start_hour": 8,
+          "duration_hours": 5,
+          "affected_zones": ["Central District", "North Residential", "South Industrial", "Riverside"],
+          "field": "electricity_demand_mw",
+          "magnitude": 1.25,
+          "explanation": "Heatwave causes 25% electricity demand increase during peak hours"
+        },
+        {
+          "event_id": "combined_002",
+          "type": "electricity_supply_disruption",
+          "start_hour": 8,
+          "duration_hours": 5,
+          "affected_zones": ["Central District", "South Industrial"],
+          "field": "electricity_supply_mw",
+          "magnitude": 0.7,
+          "explanation": "Partial grid disruption reduces supply to 70% capacity"
+        },
+        {
+          "event_id": "combined_003",
+          "type": "water_supply_disruption",
+          "start_hour": 9,
+          "duration_hours": 4,
+          "affected_zones": ["Central District", "North Residential"],
+          "field": "water_supply_litres",
+          "magnitude": 0.75,
+          "explanation": "Water system stress during peak demand; supply reduced to 75%"
+        }
+      ],
+      "interventions": [],
+      "baseline_data_source": "sample_data.csv (July 10)",
+      "expected_severity_max": "critical",
+      "expected_zones_affected": 4
+    },
+    {
+      "scenario_id": "hospital_emergency",
+      "name": "Hospital emergency during resource constraint",
+      "description": "Mass casualty incident requiring critical resource priority while city experiences heatwave stress",
+      "start_hour": 0,
+      "duration_hours": 24,
+      "events": [
+        {
+          "event_id": "hospital_001",
+          "type": "heatwave",
+          "start_hour": 6,
+          "duration_hours": 12,
+          "affected_zones": ["Central District"],
+          "field": "electricity_demand_mw",
+          "magnitude": 1.2,
+          "explanation": "Background heatwave increases demand; Central District peak"
+        },
+        {
+          "event_id": "hospital_002",
+          "type": "hospital_emergency",
+          "start_hour": 8,
+          "duration_hours": 3,
+          "affected_zones": ["Central District"],
+          "field": "critical_service_demand",
+          "magnitude": 1.5,
+          "explanation": "Mass casualty incident elevates critical electricity and water requirements 50%"
+        }
+      ],
+      "interventions": [
+        {
+          "intervention_id": "intv_hospital_001",
+          "type": "protect_critical",
+          "start_hour": 8,
+          "affected_zones": ["Central District"],
+          "magnitude": 0.0,
+          "action": "protect_electricity_critical",
+          "explanation": "Emergency protocol: hospital electricity guaranteed despite shortage"
+        }
+      ],
+      "baseline_data_source": "sample_data.csv (July 7)",
+      "expected_severity_max": "critical",
+      "expected_zones_affected": 1
+    }
+  ],
+  "metadata": {
+    "total_scenarios": 8,
+    "data_period": "30 days (June 18 - July 17, 2026)",
+    "zones": ["Central District", "North Residential", "South Industrial", "Riverside"],
+    "event_types": ["normal_operations", "heatwave", "low_solar_generation", "electricity_supply_disruption", "water_supply_disruption", "combined_shortage", "hospital_emergency", "recovery"],
+    "intervention_types": ["demand_reduction", "capacity_increase", "protect_critical", "change_priority", "restore"],
+    "note": "All scenarios use deterministically generated synthetic data with fixed random seed. No real infrastructure impacts."
+  }
+}
